@@ -5,8 +5,8 @@
 	}
 
 	let participants: Participant[] = $state([
-		{ name: '', email: '' },
-		{ name: '', email: '' },
+		{ name: 'Francisco', email: 'franciscopower66@gmail.com' },
+		{ name: 'Angelica', email: 'angelicasofiagn@gmail.com' },
 		{ name: '', email: '' }
 	]);
 
