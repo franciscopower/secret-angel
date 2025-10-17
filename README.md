@@ -1,5 +1,16 @@
 # Secret Angel
 
+## Build it yourself
+
+```sh
+npm install --legacy-peer-deps
+npm run dev
+```
+
+>I need to fix the legacy peer dependencies. Work in progress ;)
+
+## Requirements
+
 1. **Participant Management**
    - As a user, I want to enter the name and email of each participant in the Secret Santa game so that they can be registered in the system.
    - As a user, I want an option to add more participants dynamically so that I am not limited to the initial three participants.
