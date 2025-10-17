@@ -6,6 +6,24 @@ import * as dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
+export const actions = {
+  default: async ({ cookies, request }) => {
+    const data = await request.formData();
+    const emails = data.getAll('email') as string[];
+    const names = data.getAll('name') as string[];
+
+    const distributionList = createDistributionList(emails, names);
+    const shuffledList = shuffleArray(distributionList);
+
+    distributionList.forEach(async (participant, index) => {
+      const assigned = shuffledList[index];
+      const emailText = `Hi ${participant.name}! You are the secret angel of ${assigned.name}`;
+      await sendEmail(participant.email, emailText);
+    });
+
+  }
+}satisfies Actions;
+
 // Create a transporter object using Mailtrap
 const transporter = nodemailer.createTransport(
   MailtrapTransport({
@@ -13,21 +31,17 @@ const transporter = nodemailer.createTransport(
   })
 );
 
-const emailText = "You are the secret angel of ";
-
 // Function to send email
-async function sendEmail(toName: string, toEmail: string) {
+async function sendEmail(toEmail: string, emailText: string) {
+  console.log(`Sending email to ${toEmail} with text: ${emailText}`);
   try {
     const sender = {
       address: "secret-angel@npower.dev",
       name: "Secret Angel",
     };
-    const recipients = [
-      "franciscopower66@gmail.com",
-    ];
     const info = await transporter.sendMail({
       from: sender,
-      to: recipients,
+      to: toEmail,
       subject: "You're the secret Angel of...", // Subject line
       text: emailText
       // html: "", // html body
@@ -39,13 +53,35 @@ async function sendEmail(toName: string, toEmail: string) {
   }
 }
 
+interface Participant {
+  email: string;
+  name: string;
+}
 
-export const actions = {
-  default: async ({cookies, request}) => {
-    const data = await request.formData();
-    const emails = data.getAll('email') as string[];
-    const names = data.getAll('name') as string[];
+function createDistributionList(emails: string[], names: string[]): Participant[] {
+  return emails.map((email, index) => ({
+    email: email,
+    name: names[index],
+  }))
+}
 
-    await sendEmail(names[0], emails[0]);
+function shuffleArray<T>(array: T[]): T[] {
+  const n = array.length;
+  const indices = Array.from({ length: n }, (_, i) => i);
+
+  // Fisher-Yates shuffle of indices
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
   }
-} satisfies Actions;
+
+  // Fix any fixed points to ensure a derangement
+  for (let i = 0; i < n; i++) {
+    if (indices[i] === i) {
+      const swapWith = (i === n - 1) ? i - 1 : i + 1;
+      [indices[i], indices[swapWith]] = [indices[swapWith], indices[i]];
+    }
+  }
+
+  return indices.map(i => array[i]);
+}
