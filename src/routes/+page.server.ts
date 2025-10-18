@@ -34,6 +34,7 @@ const transporter = nodemailer.createTransport(
 // Function to send email
 async function sendEmail(toEmail: string, emailText: string) {
   console.log(`Sending email to ${toEmail} with text: ${emailText}`);
+  return
   try {
     const sender = {
       address: "secret-angel@npower.dev",
