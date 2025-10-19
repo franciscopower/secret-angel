@@ -43,4 +43,32 @@
 </div>
 
 <style>
+
+
+	h1{
+		font-style: italic;
+		color:coral;
+		display: flex;
+		justify-content: center;
+	}
+
+	.participants-container{
+		 display: flex;
+  		 justify-content: center;
+		 
+		 
+	}
+
+	.participants-container input{
+		font-size: large;
+		background-color: antiquewhite;
+		font-style: Monospace;
+		
+	}
+
+	.participants-container button{
+		background-color:burlywood;
+		font-size: large;
+	}
+
 </style>
