@@ -7,20 +7,24 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export const actions = {
-  default: async ({ cookies, request }) => {
+  default: async ({ request }) => {
     const data = await request.formData();
+    // Parse form data
     const emails = data.getAll('email') as string[];
     const names = data.getAll('name') as string[];
 
+    // Create distribution list and shuffle
     const distributionList = createDistributionList(emails, names);
     const shuffledList = shuffleArray(distributionList);
 
+    // Send emails
     distributionList.forEach(async (participant, index) => {
       const assigned = shuffledList[index];
       const emailText = `Hi ${participant.name}! You are the secret angel of ${assigned.name}`;
       await sendEmail(participant.email, emailText);
     });
 
+    return { success: true };
   }
 }satisfies Actions;
 

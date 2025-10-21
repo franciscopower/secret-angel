@@ -1,12 +1,18 @@
 <script lang="ts">
+  let { form } = $props();
+
+  $effect(() => {
+    console.log('Form data changed:', form);
+  });
+
 	interface Participant {
 		name: string;
 		email: string;
 	}
 
 	let participants: Participant[] = $state([
-		{ name: 'Francisco', email: 'franciscopower66@gmail.com' },
-		{ name: 'Angelica', email: 'angelicasofiagn@gmail.com' },
+		{ name: '', email: '' },
+		{ name: '', email: '' },
 		{ name: '', email: '' }
 	]);
 
@@ -29,8 +35,8 @@
 
 		{#each participants as participant, index (index)}
 			<div class="participant">
-				<input name="name" type="text" bind:value={participant.name} placeholder="Name" />
-				<input name="email" type="email" bind:value={participant.email} placeholder="Email" />
+				<input required name="name" type="text" bind:value={participant.name} placeholder="Name" />
+				<input required name="email" type="email" bind:value={participant.email} placeholder="Email" />
 				<button type="button" onclick={() => deleteParticipant(index)}>Delete</button>
 			</div>
 		{/each}
