@@ -1,13 +1,11 @@
 # Secret Angel
 
-## Build it yourself
+## Run it yourself (in dev mode)
 
 ```sh
-npm install --legacy-peer-deps
+npm install
 npm run dev
 ```
-
->I need to fix the legacy peer dependencies. Work in progress ;)
 
 ## Requirements
 
