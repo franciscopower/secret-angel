@@ -17,16 +17,17 @@ export const actions = {
     const distributionList = createDistributionList(emails, names);
     const shuffledList = shuffleArray(distributionList);
 
+    const res: number[] = [];
     // Send emails
     distributionList.forEach(async (participant, index) => {
       const assigned = shuffledList[index];
       const emailText = `Hi ${participant.name}! You are the secret angel of ${assigned.name}`;
-      await sendEmail(participant.email, emailText);
+      res.push(await sendEmail(participant.email, emailText));
     });
 
-    return { success: true };
+    return { status: res.every(status => status === 200) ? "success" : "error" };
   }
-}satisfies Actions;
+} satisfies Actions;
 
 // Create a transporter object using Mailtrap
 const transporter = nodemailer.createTransport(
@@ -38,7 +39,6 @@ const transporter = nodemailer.createTransport(
 // Function to send email
 async function sendEmail(toEmail: string, emailText: string) {
   console.log(`Sending email to ${toEmail} with text: ${emailText}`);
-  return
   try {
     const sender = {
       address: "secret-angel@npower.dev",
@@ -53,8 +53,11 @@ async function sendEmail(toEmail: string, emailText: string) {
     });
 
     console.log("Message sent: %s", info);
+    return 200;
   } catch (err) {
     console.error("Error while sending mail", err);
+    return 500;
+
   }
 }
 
