@@ -2,6 +2,7 @@ import type { Actions } from './$types';
 import nodemailer from 'nodemailer';
 import { MailtrapTransport } from 'mailtrap';
 import * as dotenv from 'dotenv';
+import { fail } from '@sveltejs/kit';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -12,6 +13,13 @@ export const actions = {
     // Parse form data
     const emails = data.getAll('email') as string[];
     const names = data.getAll('name') as string[];
+
+    // Validate input
+    //check for repeated names
+    const nameSet = new Set(names);
+    if (nameSet.size !== names.length) {
+      return fail(422, { repeated: true });
+    }
 
     // Create distribution list and shuffle
     const distributionList = createDistributionList(emails, names);
@@ -25,7 +33,11 @@ export const actions = {
       res.push(await sendEmail(participant.email, emailText));
     });
 
-    return { status: res.every(status => status === 200) ? "success" : "error" };
+    if (res.every(status => status === 200)) {
+      return { success: true };
+    } else {
+      return fail(500, { sendError: true });
+    }
   }
 } satisfies Actions;
 
@@ -39,6 +51,7 @@ const transporter = nodemailer.createTransport(
 // Function to send email
 async function sendEmail(toEmail: string, emailText: string) {
   console.log(`Sending email to ${toEmail} with text: ${emailText}`);
+  return 200;
   try {
     const sender = {
       address: "secret-angel@npower.dev",
