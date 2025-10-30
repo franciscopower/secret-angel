@@ -101,7 +101,7 @@ We follow conventional commit standards for clear commit history:
 - `feat: add new feature` - A new feature
 - `fix: resolve bug` - A bug fix
 - `docs: update README` - Documentation changes
-- `style: format code` - Code style changes (formatting, missing semi-colons, etc.)
+- `style: format code` - Code style changes (formatting, missing semicolons, etc.)
 - `refactor: restructure code` - Code refactoring without changing functionality
 - `test: add tests` - Adding or updating tests
 - `chore: update dependencies` - Maintenance tasks
