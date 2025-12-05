@@ -9,3 +9,9 @@
 </svelte:head>
 
 {@render children?.()}
+
+<style>
+  :global(body) {
+    font-family: 'Philosopher', sans-serif;
+  }
+</style>
