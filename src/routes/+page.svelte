@@ -19,7 +19,7 @@
 				sendError: 'Oops! There was an issue sending your angelic messages.'
 			},
 			success: 'Your angelic messages have taken flight!',
-			submitButton: 'Deliver Angelic Greetings',
+			submitButton: 'Deliver Angelic Messages',
 			resetButton: 'Spread More Magic',
 			placeholders: {
 				name: "Angel's Name",
@@ -39,7 +39,7 @@ Wishing you a joyful season!`
 				sendError: 'Oops! There was an issue sending your secret Santa messages.'
 			},
 			success: 'Your festive messages have been delivered!',
-			submitButton: 'Send Festive Greetings',
+			submitButton: 'Send Festive Messages',
 			resetButton: 'Spread More Holiday Cheer',
 			placeholders: {
 				name: "Santa's Helper",
@@ -59,7 +59,7 @@ Wishing you a joyful season!`
 				sendError: 'Oops! There was an issue delivering your secret friend messages.'
 			},
 			success: 'Your friendly messages have been shared!',
-			submitButton: 'Send Friendly Greetings',
+			submitButton: 'Send Friendly Messages',
 			resetButton: 'Make More Friends',
 			placeholders: {
 				name: "Friend's Name",
@@ -152,6 +152,8 @@ Wishing you a joyful season!`,
 				<Icon icon="material-symbols:add-circle-outline-rounded" />
 			</button>
 		</div>
+
+    <div class="textarea-description">Type your message bellow. Use <i>'@giver'</i> and <i>'@receiver'</i> as placeholders for the participant's names. Don't worry, we'll replace them later.</div>
 
 		{#if form?.missingMarkers}
 			<div class="error-message">
@@ -354,6 +356,13 @@ Wishing you a joyful season!`,
 		}
 	}
 
+  .textarea-description {
+    color: var(--secondary-color);
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding: 0 5px;
+  }
+
 	.styled-textarea {
 		background: rgba(255, 255, 255, 0.3);
 		border-radius: 8px;
@@ -369,7 +378,6 @@ Wishing you a joyful season!`,
 			background: transparent;
 			margin: 10px 0 0 0;
 			resize: vertical;
-			font-family: inherit;
 			color: var(--primary-color);
 		}
 		& textarea:focus {
