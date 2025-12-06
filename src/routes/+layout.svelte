@@ -13,5 +13,6 @@
 <style>
   :global(body) {
     font-family: 'Philosopher', sans-serif;
+    --primary-color: rgb(57, 59, 77);
   }
 </style>

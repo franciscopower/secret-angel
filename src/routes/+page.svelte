@@ -200,7 +200,7 @@ Wishing you a joyful season!`,
 
 	h1 {
 		text-align: center;
-		color: rgb(57, 59, 77);
+		color: var(--primary-color);
 		margin-top: 30px;
 	}
 
@@ -214,16 +214,16 @@ Wishing you a joyful season!`,
 			border-radius: 4px;
 			border: 1px solid rgba(255, 255, 255, 0.3);
 			background: rgba(255, 255, 255, 0.4);
-			color: rgb(57, 59, 77);
+			color: var(--primary-color);
 		}
 
 		& option {
 			background: white;
 			border-radius: 4px;
-			color: rgb(57, 59, 77);
+			color: var(--primary-color);
 		}
 		& label {
-			color: rgb(57, 59, 77);
+			color: var(--primary-color);
 		}
 	}
 
@@ -295,6 +295,7 @@ Wishing you a joyful season!`,
 		border-bottom: 2px solid rgba(255, 255, 255, 0.9);
 		border-radius: 4px;
 		background: rgba(255, 255, 255, 0.4);
+		color: var(--primary-color);
 		@media (max-width: 600px) {
 			width: calc(100% - 2rem);
 			margin-right: 0;
@@ -345,7 +346,7 @@ Wishing you a joyful season!`,
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
 		cursor: pointer;
-		color: rgb(57, 59, 77);
+		color: var(--primary-color);
 		font-weight: bold;
 
 		&:hover {
@@ -369,6 +370,7 @@ Wishing you a joyful season!`,
 			margin: 10px 0 0 0;
 			resize: vertical;
 			font-family: inherit;
+			color: var(--primary-color);
 		}
 		& textarea:focus {
 			outline: 1px solid transparent;
@@ -385,7 +387,7 @@ Wishing you a joyful season!`,
 		border-radius: 8px;
 		padding: 5px 10px;
 		cursor: pointer;
-		color: rgb(57, 59, 77);
+		color: var(--primary-color);
 		font-weight: bold;
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
