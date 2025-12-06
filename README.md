@@ -4,7 +4,7 @@ A web application for organizing Secret Santa, Secret Angel, and Secret Friend g
 
 ## Screenshot
 
-![Secret Angel Application](https://github.com/user-attachments/assets/57caffe5-4979-4d63-a0c9-969c01d24d4f)
+<img width="1210" height="723" alt="image" src="https://github.com/user-attachments/assets/8a528fa6-2c94-4afd-a818-0935d795defd" />
 
 ## Features
 
