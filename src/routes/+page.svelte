@@ -75,6 +75,8 @@ Wishing you a joyful season!`,
 	};
 	let currentTheme = $state(themes.secretAngel);
 
+	let emailText = $derived(currentTheme.defaultMessage);
+
 	interface Participant {
 		name: string;
 		email: string;
@@ -153,17 +155,32 @@ Wishing you a joyful season!`,
 
 		{#if form?.missingMarkers}
 			<div class="error-message">
-				<p>Please include '@receiver' in your message, we'll then replace it with the correct name.</p>
+				<p>
+					Please include '@receiver' in your message, we'll then replace it with the correct name.
+				</p>
 			</div>
 		{/if}
-		<textarea
-			required
-			name="emailText"
-			rows="6"
-			placeholder={currentTheme.messagePlaceholder}
-			defaultValue={currentTheme.defaultMessage}
-			class="styled-textarea"
-		></textarea>
+
+		<div class="styled-textarea">
+			<div class="helper-tags">
+				<button type="button" class="quick-input" onclick={() => (emailText += '@giver')}
+					>@giver</button
+				>
+				<button type="button" class="quick-input" onclick={() => (emailText += '@receiver')}
+					>@receiver</button
+				>
+			</div>
+
+			<textarea
+				bind:value={emailText}
+				required
+				name="emailText"
+				rows="6"
+				placeholder={currentTheme.messagePlaceholder}
+				defaultValue={currentTheme.defaultMessage}
+			></textarea>
+		</div>
+
 		<div class="submit">
 			<button type="submit">{currentTheme.submitButton}</button>
 		</div>
@@ -344,5 +361,38 @@ Wishing you a joyful season!`,
 		-webkit-backdrop-filter: blur(20px);
 		border: 2px solid rgba(255, 255, 255, 0.3);
 		width: calc(100% - 25px);
+
+		& textarea {
+			width: 100%;
+			border: none;
+			background: transparent;
+			margin: 10px 0 0 0;
+			resize: vertical;
+			font-family: inherit;
+		}
+		& textarea:focus {
+			outline: 1px solid transparent;
+		}
+	}
+
+	.helper-tags {
+		display: flex;
+		gap: 10px;
+	}
+	.quick-input {
+		background: rgba(255, 255, 255, 0.5);
+		border: none;
+		border-radius: 8px;
+		padding: 5px 10px;
+		cursor: pointer;
+		color: rgb(57, 59, 77);
+		font-weight: bold;
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border: 2px solid rgba(255, 255, 255, 0.3);
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.7);
+		}
 	}
 </style>
