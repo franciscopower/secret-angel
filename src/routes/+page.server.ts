@@ -1,11 +1,8 @@
 import type { Actions } from './$types';
 import nodemailer from 'nodemailer';
 import { MailtrapTransport } from 'mailtrap';
-import * as dotenv from 'dotenv';
 import { fail } from '@sveltejs/kit';
-
-// Load environment variables from .env file
-dotenv.config();
+import { SMTP_TOKEN } from '$env/static/private';
 
 export const actions = {
 	default: async ({ request }) => {
@@ -31,15 +28,19 @@ export const actions = {
 		const distributionList = createDistributionList(emails, names);
 		const shuffledList = shuffleArray(distributionList);
 
-		const res: number[] = [];
-		// Send emails
-		distributionList.forEach(async (participant, index) => {
+		// 1. Create an array of Promises
+		const emailPromises = distributionList.map(async (participant, index) => {
 			const assigned = shuffledList[index];
 			const emailTextFinal = emailText
 				.replace(/@giver/g, participant.name)
 				.replace(/@receiver/g, assigned.name);
-			res.push(await sendEmail(participant.email, emailTextFinal));
+
+			// Return the status code from the async function
+			return await sendEmail(participant.email, emailTextFinal);
 		});
+
+		// 2. Wait for ALL emails to finish sending
+		const res = await Promise.all(emailPromises);
 
 		if (res.every((status) => status === 200)) {
 			return { success: true };
@@ -52,7 +53,7 @@ export const actions = {
 // Create a transporter object using Mailtrap
 const transporter = nodemailer.createTransport(
 	MailtrapTransport({
-		token: process.env.SMTP_TOKEN || ''
+		token: SMTP_TOKEN
 	})
 );
 
